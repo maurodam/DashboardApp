@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DraggableElement } from '../../models/draggable-element.model';
+import { Elements } from '../../models/elements.model';
 
 @Component({
   selector: 'app-draggable-element',
@@ -14,13 +15,14 @@ export class DraggableElementComponent implements OnInit {
   private draggedElement: HTMLElement | null = null;
   private apiUrl = 'https://localhost:7164';
 
+  public elements: Elements[] = [];
+
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.getCoordinatesByName('element1');
-    this.getCoordinatesByName('element2');
-    this.getCoordinatesByName('element3');
+    this.getElements();
   }
+
   @HostListener('document:mousemove', ['$event'])
   onDrag(event: MouseEvent): void {
     if (this.isDragging && this.draggedElement) {
@@ -93,4 +95,19 @@ export class DraggableElementComponent implements OnInit {
       });
   }
 
+  private getElements(): void {
+    this.http.get<any>(`${this.apiUrl}/api/GetElements`).subscribe((response: any) => {
+      const elements: Elements[] = response;
+
+      if (elements) {
+        elements.forEach((element: Elements) => {
+          this.elements.push(element);
+        });
+
+        this.elements.forEach((element: Elements) => {
+          this.getCoordinatesByName(element.name);
+        });
+      }
+    });
+  }
 }

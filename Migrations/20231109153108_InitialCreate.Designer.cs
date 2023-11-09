@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DashboardApp.Migrations
 {
     [DbContext(typeof(DashboardAppDbContext))]
-    [Migration("20231109105613_InitialCreate")]
+    [Migration("20231109153108_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -44,6 +44,22 @@ namespace DashboardApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DraggableElements");
+                });
+
+            modelBuilder.Entity("DashboardApp.Models.Elements", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Elements");
                 });
 #pragma warning restore 612, 618
         }

@@ -2,6 +2,7 @@
 using DashboardApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Xml.Linq;
 
 namespace DashboardAppAPI.Controllers
 {
@@ -14,6 +15,21 @@ namespace DashboardAppAPI.Controllers
         public DraggableElementController(DashboardAppDbContext dashboardAppDbContext)
         {
             _dashboardAppDbContext = dashboardAppDbContext;
+        }
+
+        [HttpGet("GetElements")]
+        public IActionResult DraggableElement()
+        {
+            var elements = _dashboardAppDbContext.Elements
+                    .OrderBy(o => o.Name)
+                    .ToList();
+
+            if (elements == null)
+            {
+                return NotFound($"Elementi non trovati.");
+            }
+
+            return Ok(elements);
         }
 
         [HttpGet("GetCoordinate")]

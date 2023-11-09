@@ -24,6 +24,19 @@ namespace DashboardApp.Migrations
                 {
                     table.PrimaryKey("PK_DraggableElements", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Elements",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Elements", x => x.Id);
+                });
         }
 
         /// <inheritdoc />
@@ -31,6 +44,9 @@ namespace DashboardApp.Migrations
         {
             migrationBuilder.DropTable(
                 name: "DraggableElements");
+
+            migrationBuilder.DropTable(
+                name: "Elements");
         }
     }
 }
