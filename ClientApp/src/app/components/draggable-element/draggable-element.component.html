@@ -1,0 +1,13 @@
+<div class="draggable-container">
+  <div class="draggable"   #draggable   
+ id="element1" (mousedown)="onDragStart($event)" (mouseup)="onDragEnd($event)">Elemento 1</div>
+  <div class="draggable"     #draggable 
+ id="element2" (mousedown)="onDragStart($event)" (mouseup)="onDragEnd($event)">Elemento 2</div>
+  <div class="draggable"     #draggable 
+ id="element3" (mousedown)="onDragStart($event)" (mouseup)="onDragEnd($event)">Elemento 3</div>
+</div>
+
+<!--<div class="draggable-container" #draggableContainer>
+  <div class="draggable" *ngFor="let element of elements" [id]="element.id" [style.top.px]="element.top" [style.left.px]="element.left" (mousedown)="onDragStart($event)" (mouseup)="onDragEnd($event)">{{ element.name }}</div>
+</div>-->
+

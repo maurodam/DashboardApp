@@ -1,0 +1,27 @@
+.draggable-element {
+  width: 100px;
+  height: 100px;
+  background-color: gray;
+  color: white;
+  position: absolute;
+  user-select: none;
+  cursor: grab;
+  transition: transform 0.3s ease;
+}
+
+.draggable-container {
+  position: relative;
+}
+
+.draggable {
+  position: absolute;
+  background-color: #3498db;
+  color: #ffffff;
+  padding: 10px;
+  cursor: grab;
+}
+
+.dragging {
+  cursor: grabbing;
+}
+
