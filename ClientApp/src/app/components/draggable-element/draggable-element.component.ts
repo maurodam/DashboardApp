@@ -1,7 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { DraggableElement } from '../../models/draggable-element.model';
 import { Elements } from '../../models/elements.model';
+import { DraggableElementService } from '../../services/draggable-element.service';
+
 
 @Component({
   selector: 'app-draggable-element',
@@ -13,11 +13,11 @@ export class DraggableElementComponent implements OnInit {
 
   private isDragging = false;
   private draggedElement: HTMLElement | null = null;
-  private apiUrl = 'https://localhost:7164';
+  public loading = true;
 
   public elements: Elements[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private draggableElementService: DraggableElementService) { }
 
   ngOnInit(): void {
     this.getElements();
@@ -62,52 +62,53 @@ export class DraggableElementComponent implements OnInit {
   }
 
   private saveCoordinates(coordinates: any): void {
-    this.http.post(`${this.apiUrl}/api/SaveCoordinate`, coordinates)
+    this.draggableElementService.saveCoordinates(coordinates)
       .subscribe(
         (response) => {
-          console.log('Coordinate salvate:', coordinates);
         },
         (error) => {
-          console.error('Errore durante il salvataggio delle coordinate:', error);
+          console.log('Errore saveCoordinates:', error);
         }
       );
   }
 
   private getCoordinatesByName(elementName: string): void {
-    this.http.get<any>(`${this.apiUrl}/api/GetCoordinate?elementName=${elementName}`)
-      .subscribe((response: any) => {
-        const element: DraggableElement = response;
+    this.draggableElementService.getCoordinatesByName(elementName)
+      .subscribe(
+        (element) => {
+          if (element) {
 
-        if (element) {
-          const name = element.name;
-          const elementTop = element.y; 
-          const elementLeft = element.x; 
+            console.log('Coordinate salvate:', element.name, 'top y' + element.y, 'left x' + element.x);
 
-          console.log('Coordinate salvate:', name, 'top y' + elementTop, 'left x' + elementLeft);
+            const elementToPosition = document.getElementById(element.name) as HTMLElement;
 
-          const elementToPosition = document.getElementById(name) as HTMLElement;
-
-          if (elementToPosition) {
-            elementToPosition.style.top = `${elementTop}px`;
-            elementToPosition.style.left = `${elementLeft}px`;
+            if (elementToPosition) {
+              elementToPosition.style.top = `${element.y}px`;
+              elementToPosition.style.left = `${element.x}px`;
+            }
           }
+        },
+        (error) => {
+          console.log('Errore getCoordinatesByName:', error);
         }
-      });
+      );
   }
 
   private getElements(): void {
-    this.http.get<any>(`${this.apiUrl}/api/GetElements`).subscribe((response: any) => {
-      const elements: Elements[] = response;
+    this.draggableElementService.getElements()
+      .subscribe(
+        (elements) => {
+          this.elements = elements;
 
-      if (elements) {
-        elements.forEach((element: Elements) => {
-          this.elements.push(element);
-        });
+          elements.forEach((element: Elements) => {
+            this.getCoordinatesByName(element.name);
+          });
 
-        this.elements.forEach((element: Elements) => {
-          this.getCoordinatesByName(element.name);
-        });
-      }
-    });
+          this.loading = false;
+        },
+        (error) => {
+          console.log('Errore getElements:', error);
+        }
+      );
   }
 }

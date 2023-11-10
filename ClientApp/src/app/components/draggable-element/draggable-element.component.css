@@ -1,3 +1,4 @@
+/* Draggable Element */
 .draggable-element {
   width: 100px;
   height: 100px;
@@ -25,3 +26,25 @@
   cursor: grabbing;
 }
 
+/* Loading Element */
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; 
+  background-color: rgba(255, 255, 255, 0.7); 
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; 
+}
+
+.loading-text {
+  font-size: 20px;
+  color: #333; 
+  padding: 20px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+}

@@ -1,7 +1,15 @@
-<div class="draggable-container">
-  <div class="draggable"
-       *ngFor="let element of elements"
-       [id]="element.name"
-       (mousedown)="onDragStart($event)"
-       (mouseup)="onDragEnd($event)">{{ element.name }}</div>
+<div *ngIf="loading" class="loading-container">
+  <div class="loading-text">
+    Caricamento in corso...
+  </div>
+</div>
+
+<div *ngIf="!loading">
+  <div class="draggable-container">
+    <div class="draggable"
+         *ngFor="let element of elements"
+         [id]="element.name"
+         (mousedown)="onDragStart($event)"
+         (mouseup)="onDragEnd($event)">{{ element.name }}</div>
+  </div>
 </div>
