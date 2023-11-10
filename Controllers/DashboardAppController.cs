@@ -18,7 +18,7 @@ namespace DashboardAppAPI.Controllers
         }
 
         [HttpGet("GetElements")]
-        public IActionResult DraggableElement()
+        public IActionResult ElementCoordinate()
         {
             var elements = _dashboardAppDbContext.Elements
                     .OrderBy(o => o.Name)
@@ -37,7 +37,7 @@ namespace DashboardAppAPI.Controllers
         {
             try
             {
-                var element = _dashboardAppDbContext.DraggableElements
+                var element = _dashboardAppDbContext.ElementCoordinate
                     .Where(w => w.Name == elementName)
                     .OrderByDescending(o => o.Id)
                     .FirstOrDefault();
@@ -59,15 +59,15 @@ namespace DashboardAppAPI.Controllers
 
 
         [HttpPost("SaveCoordinate")]
-        public IActionResult SaveCoordinate(DraggableElement element)
+        public IActionResult SaveCoordinate(ElementCoordinate element)
         {
             try
             {
-                var existingElement = _dashboardAppDbContext.DraggableElements.FirstOrDefault(e => e.Name == element.Name);
+                var existingElement = _dashboardAppDbContext.ElementCoordinate.FirstOrDefault(e => e.Name == element.Name);
 
                 if (existingElement == null)
                 {
-                    _dashboardAppDbContext.DraggableElements.Add(element);
+                    _dashboardAppDbContext.ElementCoordinate.Add(element);
                 }
                 else
                 {

@@ -6,11 +6,11 @@
 MERGE INTO dbo.Elements tgt
 USING (
     VALUES 
-        ('element1'),
-        ('element2'),
-        ('element3'),
-        ('element4'),
-        ('element5')
+        ('Elemento 1'),
+        ('Elemento 2'),
+        ('Elemento 3'),
+        ('Elemento 4'),
+        ('Elemento 5')
 ) AS src (Name)
 ON tgt.Name = src.Name
 WHEN MATCHED THEN

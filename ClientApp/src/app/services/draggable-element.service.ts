@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Elements } from '../models/elements.model';
-import { DraggableElement } from '../models/draggable-element.model';
+import { ElementCoordinate } from '../models/draggable-element.model';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -29,10 +29,10 @@ export class DraggableElementService {
       );
   }
 
-  getCoordinatesByName(elementName: string): Observable<DraggableElement> {
-    return this.http.get<DraggableElement>(`${this.apiUrl}/api/GetCoordinate?elementName=${elementName}`)
+  getCoordinatesByName(elementName: string): Observable<ElementCoordinate> {
+    return this.http.get<ElementCoordinate>(`${this.apiUrl}/api/GetCoordinate?elementName=${elementName}`)
       .pipe(
-        map((response: DraggableElement) => {
+        map((response: ElementCoordinate) => {
           return response;
         }),
         catchError(error => {

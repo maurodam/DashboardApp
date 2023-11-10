@@ -21,7 +21,7 @@ namespace DashboardApp.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("DashboardApp.Models.DraggableElement", b =>
+            modelBuilder.Entity("DashboardApp.Models.ElementCoordinate", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -40,7 +40,7 @@ namespace DashboardApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DraggableElements");
+                    b.ToTable("ElementCoordinate");
                 });
 
             modelBuilder.Entity("DashboardApp.Models.Elements", b =>

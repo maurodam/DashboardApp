@@ -5,13 +5,13 @@
 namespace DashboardApp.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "DraggableElements",
+                name: "ElementCoordinate",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -22,7 +22,7 @@ namespace DashboardApp.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DraggableElements", x => x.Id);
+                    table.PrimaryKey("PK_ElementCoordinate", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -43,7 +43,7 @@ namespace DashboardApp.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "DraggableElements");
+                name: "ElementCoordinate");
 
             migrationBuilder.DropTable(
                 name: "Elements");

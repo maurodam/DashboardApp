@@ -34,6 +34,7 @@
   <ItemGroup>
     <Folder Include="ClientApp\src\app\components\" />
     <Folder Include="ClientApp\src\app\services\" />
+    <Folder Include="Migrations\" />
     <Folder Include="Models\Scripts\" />
   </ItemGroup>
 

@@ -1,4 +1,4 @@
-export interface DraggableElement {
+export interface ElementCoordinate {
   id: number;
   name: string;
   x: number;

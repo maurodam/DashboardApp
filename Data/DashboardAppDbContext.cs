@@ -10,7 +10,7 @@ namespace DashboardApp.Data
         {
         }
 
-        public DbSet<DraggableElement> DraggableElements { get; set; }
+        public DbSet<ElementCoordinate> ElementCoordinate { get; set; }
         public DbSet<Elements> Elements { get; set; }
     }
 
