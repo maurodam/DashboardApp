@@ -8,7 +8,8 @@
   <div class="draggable-container">
     <div class="draggable"
          *ngFor="let element of elements"
-         [id]="element.name"
+         [id]="element.id"
+         [attr.name]="element.name"
          (mousedown)="onDragStart($event)"
          (mouseup)="onDragEnd($event)">{{ element.name }}</div>
   </div>

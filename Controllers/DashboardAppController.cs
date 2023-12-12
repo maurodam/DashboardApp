@@ -33,18 +33,18 @@ namespace DashboardAppAPI.Controllers
         }
 
         [HttpGet("GetCoordinate")]
-        public IActionResult GetCoordinate(string elementName)
+        public IActionResult GetCoordinate(int elementId)
         {
             try
             {
                 var element = _dashboardAppDbContext.ElementCoordinate
-                    .Where(w => w.Name == elementName)
+                    .Where(w => w.ElementId == elementId)
                     .OrderByDescending(o => o.Id)
                     .FirstOrDefault();
 
                 if (element == null)
                 {
-                    return NotFound($"Elemento con il nome {elementName} non trovato.");
+                    return NotFound($"Elemento non trovato.");
                 }
 
                 return Ok(element);
@@ -63,7 +63,7 @@ namespace DashboardAppAPI.Controllers
         {
             try
             {
-                var existingElement = _dashboardAppDbContext.ElementCoordinate.FirstOrDefault(e => e.Name == element.Name);
+                var existingElement = _dashboardAppDbContext.ElementCoordinate.FirstOrDefault(e => e.ElementId == element.ElementId);
 
                 if (existingElement == null)
                 {

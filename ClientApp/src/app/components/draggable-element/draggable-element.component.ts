@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { Elements } from '../../models/elements.model';
+import { Elements } from '../../models/models';
 import { DraggableElementService } from '../../services/draggable-element.service';
 
 
@@ -45,7 +45,8 @@ export class DraggableElementComponent implements OnInit {
       const leftNumeric = parseInt(leftValue, 10);
 
       const coordinates = {
-        name: this.draggedElement.id,
+        elementId: this.draggedElement.id,
+        name: this.draggedElement.getAttribute('name'),
         x: leftNumeric,
         y: topNumeric,
       };
@@ -72,15 +73,15 @@ export class DraggableElementComponent implements OnInit {
       );
   }
 
-  private getCoordinatesByName(elementName: string): void {
-    this.draggableElementService.getCoordinatesByName(elementName)
+  private getCoordinatesById(elementId: number): void {
+    this.draggableElementService.getCoordinatesById(elementId)
       .subscribe(
         (element) => {
           if (element) {
 
-            console.log('Coordinate salvate:', element.name, 'top y' + element.y, 'left x' + element.x);
+            console.log('Coordinate salvate:', element.elementId, 'top y' + element.y, 'left x' + element.x);
 
-            const elementToPosition = document.getElementById(element.name) as HTMLElement;
+            const elementToPosition = document.getElementById(element.elementId.toString()) as HTMLElement;
 
             if (elementToPosition) {
               elementToPosition.style.top = `${element.y}px`;
@@ -101,7 +102,7 @@ export class DraggableElementComponent implements OnInit {
           this.elements = elements;
 
           elements.forEach((element: Elements) => {
-            this.getCoordinatesByName(element.name);
+            this.getCoordinatesById(element.id);
           });
 
           this.loading = false;

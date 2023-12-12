@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { Elements } from '../models/elements.model';
-import { ElementCoordinate } from '../models/draggable-element.model';
+import { Elements, ElementCoordinate } from '../models/models';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -29,8 +28,8 @@ export class DraggableElementService {
       );
   }
 
-  getCoordinatesByName(elementName: string): Observable<ElementCoordinate> {
-    return this.http.get<ElementCoordinate>(`${this.apiUrl}/api/GetCoordinate?elementName=${elementName}`)
+  getCoordinatesById(elementId: number): Observable<ElementCoordinate> {
+    return this.http.get<ElementCoordinate>(`${this.apiUrl}/api/GetCoordinate?elementId=${elementId}`)
       .pipe(
         map((response: ElementCoordinate) => {
           return response;
